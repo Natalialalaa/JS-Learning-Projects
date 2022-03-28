@@ -1,0 +1,48 @@
+<!--
+28 / 03 / 22
+Key concepts learned:
+
+1. arrays
+2. document.getElementById()
+3. document.querySelector()
+4. addEventListener()
+5. document.body.style.backgroundColor
+6. Math.floor() -> to round down, while math.round depends if fractional is > or < of.5,, math.ceil() to greatest integer.
+7. Math.random() 
+8. array.length 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classic Color Flipper</title>
+
+    <!-- styles -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-center">
+        <h4>Color Flipper</h4>
+        <ul class="nav-links">
+          <li>
+           <a href="index.html">Simple</a>
+          </li>
+          <li>
+            <a href="hex.html">Hex</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main>
+      <div class="container">
+        <h2>background color : <span class="color">#F1f5f8</span></h2>
+        <button class="btn btn-hero" id="btn">click me</button>
+      </div>
+    </main>
+    <!-- javascript -->
+    <script src="hex.js"></script>
+  </body>
+</html>
