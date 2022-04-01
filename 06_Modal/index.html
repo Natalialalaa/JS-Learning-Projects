@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+  <!-- lauch button -->
+  <button class="show-modal">Intech Shop | Login</button>
+
+  <!-- the modal body -->
+  <div class="modal hidden">
+    <!-- close button-->
+    <button class="close-modal">&times;</button>
+    <h1>Welcome back !</h1>
+    <form action="">
+        <input type="email" id="" placeholder="Email">
+        <input type="password" id="" placeholder="Password">
+        <button type="submit">Log in</button>
+        <p>Forgot your password?<a href=""> Get help</a></p>
+    </form>
+  </div>
+  <div class="overlay hidden"></div>
+  
+  <script src="app.js"></script>
+  </body>
+</html>
+
+
