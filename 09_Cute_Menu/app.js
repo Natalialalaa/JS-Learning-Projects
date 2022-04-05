@@ -1,3 +1,6 @@
+/* Accessing data from html tag "data-..." */
+
+
 const menuData = [
   {
     id: 1,
@@ -75,12 +78,45 @@ const menuData = [
 
 
 /*all menu items section*/
-const allMenuSection = document.querySelector('.section-center');
+const menuSection = document.querySelector('.section-center');
 
+const filterBtns = document.querySelectorAll('.filter-btn');
 
-//load menuData data's directly even before all resources completely loaded 
+//load items / menuData data's directly even before all resources completely loaded 
 window.addEventListener('DOMContentLoaded', () => {
-  let displayMenuData = menuData.map((item) => {
+  displayMenuItems(menuData);
+});
+
+
+//filter items
+filterBtns.forEach( btn => {
+  btn.addEventListener('click', (e) => {
+    //accessing html data id of each selected button
+    const btnsCategory = e.currentTarget.dataset.id;
+
+
+    const menuCategory = menuData.filter((menuItem) => { 
+      if (menuItem.category === btnsCategory) {
+        return menuItem;
+      }
+    });
+
+
+    if (btnsCategory === 'all') {
+      displayMenuItems(menuData);
+    } else {
+      displayMenuItems(menuCategory);
+    }
+    //console.log(btnsCategory);
+    //console.log(menuCategory);
+
+  });
+});
+
+
+
+function displayMenuItems(menuItems){
+  let displayMenuData = menuItems.map((item) => {
     //this are each single objects/items (9) of the current array used in html template ->
     //console.log(item);
 
@@ -103,7 +139,5 @@ window.addEventListener('DOMContentLoaded', () => {
   //console.log(displayMenuData);
   
   //using this string as an data
-  allMenuSection.innerHTML = displayMenuData;
-  
-
-});
+  menuSection.innerHTML = displayMenuData;
+}
