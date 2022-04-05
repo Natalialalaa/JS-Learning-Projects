@@ -1,10 +1,10 @@
-const menu = [
+const menuData = [
   {
     id: 1,
     title: "buttermilk pancakes",
     category: "breakfast",
     price: 15.99,
-    img: "./images/item-1.jpeg",
+    img: "images/item-1.jpeg",
     desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
   },
   {
@@ -72,3 +72,38 @@ const menu = [
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
 ];
+
+
+/*all menu items section*/
+const allMenuSection = document.querySelector('.section-center');
+
+
+//load menuData data's directly even before all resources completely loaded 
+window.addEventListener('DOMContentLoaded', () => {
+  let displayMenuData = menuData.map((item) => {
+    //this are each single objects/items (9) of the current array used in html template ->
+    //console.log(item);
+
+    return `<article class="menu-item">
+              <img src=${item.img} class="photo" alt="menu item">
+
+              <div class="item-info">
+                <header>
+                  <h4>${item.title}</h4>
+                  <h4 class="price">${item.price}</h4>
+                </header>
+                <p class="item-text">
+                  ${item.desc}
+                </p>
+              </div>
+            </article>`;
+  });
+  displayMenuData = displayMenuData.join("");
+  //this will show the final array as string -> 
+  //console.log(displayMenuData);
+  
+  //using this string as an data
+  allMenuSection.innerHTML = displayMenuData;
+  
+
+});
