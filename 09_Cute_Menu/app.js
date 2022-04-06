@@ -85,6 +85,8 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 //load items / menuData data's directly even before all resources completely loaded 
 window.addEventListener('DOMContentLoaded', () => {
   displayMenuItems(menuData);
+
+  //using reduce() to add new button for a new and unique category
 });
 
 
@@ -94,7 +96,7 @@ filterBtns.forEach( btn => {
     //accessing html data id of each selected button
     const btnsCategory = e.currentTarget.dataset.id;
 
-
+    //filter() specific category (from btnsCategory) for displayMenuItems's arguments input 
     const menuCategory = menuData.filter((menuItem) => { 
       if (menuItem.category === btnsCategory) {
         return menuItem;
@@ -107,9 +109,9 @@ filterBtns.forEach( btn => {
     } else {
       displayMenuItems(menuCategory);
     }
+
     //console.log(btnsCategory);
     //console.log(menuCategory);
-
   });
 });
 
