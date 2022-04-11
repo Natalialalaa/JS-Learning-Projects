@@ -77,6 +77,7 @@ const menuData = [
 ];
 
 
+
 /*all menu items section*/
 const menuSection = document.querySelector('.section-center');
 
