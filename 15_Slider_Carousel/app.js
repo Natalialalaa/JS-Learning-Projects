@@ -13,7 +13,7 @@ nextBtn.addEventListener("click", () => {
     carousel();
 });
 
-nextBtn.addEventListener("click", () => {
+prevBtn.addEventListener("click", () => {
     counter--;
     carousel();
 });
