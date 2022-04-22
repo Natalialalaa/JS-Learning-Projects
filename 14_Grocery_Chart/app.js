@@ -8,6 +8,7 @@ const container = document.querySelector('.grocery-container');
 const list = document.querySelector('.grocery-list');
 const clearBtn = document.querySelector('.clear-btn');
 
+
 // edit option
 let editElement;
 //default mode of editFlag is false
@@ -15,7 +16,11 @@ let editFlag = false;
 let editID = "";
 
 // ****** EVENT LISTENERS **********
+//*** Submit value */
 form.addEventListener("submit", addItem);
+//*** Clear items */
+clearBtn.addEventListener("click", clearItems);
+
 
 function addItem(e) {
     //prevent default mode: unsubmit value to server
@@ -32,6 +37,7 @@ function addItem(e) {
         //create <articles> dynamically (with class and our unique ids)
         const element = document.createElement('article');
         element.classList.add('grocery-item');
+
         const attr = document.createAttribute('data-id');
         attr.value = id;
         element.setAttributeNode(attr);
@@ -39,27 +45,42 @@ function addItem(e) {
         //insert literal template within articles
         element.innerHTML = 
         `<p class="title">${value}</p>
-
-        <div class="btn-container">
+         <div class="btn-container">
           <button type="button" class="edit-btn"><i class="fas fa-edit"></i></button>
           <button type="button" class="delete-btn"><i class="fas fa-trash"></i></button>                
-        </div>`;
+         </div>`;
         
-        //append child between <div class="grocery-list">
+    /****accessing delete and edit button by element. instead of document. (even bubbling / dynamic node), 
+         because this item is not currently exist in .html on the first load */
+        const deleteBtn = element.querySelector('.delete-btn');
+        const editBtn = element.querySelector('.edit-btn');
+
+        deleteBtn.addEventListener('click', deleteItem);
+        editBtn.addEventListener('click', editItem);
+
+    //*******************************************************************************************************/
+
+        //append element to list / <div class="grocery-list">
         list.appendChild(element);
 
         //  visibility: visible; on this new class will override :hidden; value on .grocery-container
-        container.classList.add('show-container');
+        container.classList.add("show-container");
         
         //ALERT
         displayAlert("item added to the list", "success");
+        addToLocalStorage(id, value);
+        setBackToDefault();
 
     //editing item : if value is not empty and editFlag is true
     } else if (value && editFlag) {
-        console.log("editing item");
-    //there is no item : 
+        editElement.innerHTML = value;
+        displayAlert("value changed", "danger");
+
+        //editLocalStorage
+        editLocalStorage(editID);
+        setBackToDefault()
+    //0 item storage/input: 
     } else {
-        console.log("there is no item");
         //ALERT
         displayAlert("please enter value", "danger");
     }
@@ -78,6 +99,75 @@ function displayAlert(text, action) {
     }, 1000)
 }
 
+
+//7:00;
+//clear items
+function clearItems() {
+    const items = document.querySelectorAll('.grocery-item');
+
+    if (items.length > 0) {
+        items.forEach(function (item) {
+            //*list = <div class="grocery-list">
+            list.removeChild(item);
+        });
+    }
+    //remove 'clear items' button automatically when all items has removed
+    container.classList.remove("show-container");
+    displayAlert("empty list", "danger");
+    setBackToDefault();
+}   
+
+//delete and edit icons
+function deleteItem(e){
+    //using current target to get specific/ current element
+    const element = e.currentTarget.parentElement.parentElement;
+    const id = element.dataset.id;
+
+    list.removeChild(element);
+
+    //delete 'clear items' button and left over spaces when all notes has been removed.
+    if(list.children.length === 0){
+        container.classList.remove('show-container')
+    }
+    displayAlert('item removed', 'danger');
+    setBackToDefault();
+    //removeFromLocalStorage();
+}
+
+function editItem(e){
+    const element = e.currentTarget.parentElement.parentElement;
+    editElement = e.currentTarget.parentElement.previousElementSibling;
+
+    grocery.value = editElement.innerHTML;
+    editFlag = true;
+    //accessing the specific element to edit by unique ID
+    editID = element.dataset.id;
+
+    submitBtn.textContent = "edit";
+}
+
+//set back entry field to default (auto erase field once value submitted)
+function setBackToDefault() {
+    grocery.value = "";
+    editFlag = false;
+    editID = "";
+    submitBtn.textContent = "submit";
+}
+
+
+
+
 // ****** LOCAL STORAGE **********
+function addToLocalStorage(id,value) {
+    console.log("added to local storage")
+}
+
+function removeFromLocalStorage(id) {
+
+}
+
+function editLocalStorage(id, value) {
+
+}
 
 // ****** SETUP ITEMS **********
